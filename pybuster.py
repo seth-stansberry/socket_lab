@@ -21,19 +21,24 @@ when the file is parsed the queue of words for the actual brute forcing is pulle
   fd.close
   
   found_resume = False
+  words = Queue.Queue()
   
-  words = word.rstrip()
-  
-  if resume is not None:
-  
-    if found_resume:
-      words.put(word)
-      
+  for word in raw_words:
+
+    words = word.rstrip()
+
+    if resume is not None:
+
+      if found_resume:
+        words.put(word)
+
+      else:
+        if word == resume:
+          found_resume = True
+          print "Resuming wordlist from: $s" % resume
+
     else:
-      if word == resume:
-        found_resume = True
-        print "Resuming wordlist from: $s" % resume
-    
-  else:
-       words.put(word)
-return words
+         words.put(word)
+        
+  return words
+
