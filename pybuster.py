@@ -79,3 +79,11 @@ def dir_bruter(word_queue,extensions=None):
         if hasattr(e, 'code') and e.code != 404:
           print "!!! %d => %s"e.code,url)
         pass
+      
+# TODO:  may need to refactor this line
+word_queue = build_wordlist(wordlist_file)
+extensions = [".php",".bak",".orig",".inc"]
+
+for i in range (threads):
+  t = threading.Thread(target=dir_bruter,args=(word_queue,extensions,))
+  t.start
